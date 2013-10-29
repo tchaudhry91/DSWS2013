@@ -12,6 +12,7 @@ public interface Session {
 	 * Disconnects the session connection.
 	 * @return true when the connection is successfully disconnected
 	 * @return false when the connection is not successfully disconnected
+	 dasdasdasd
 	 */
 	public boolean disconnect();
 	
