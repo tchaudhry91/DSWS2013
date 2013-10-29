@@ -26,6 +26,8 @@ public class CommandFactory {
         String[] parameters = Arrays.copyOfRange(parts, 1, parts.length);
         if (commandName.equals("quit")) {
             command = new QuitCommand(context, parameters, line);
+        } else if (commandName.equals("connect")) {
+            command = new ConnectCommand(context, parameters, line);
         }
         else if(commandName.equals("help")) {
         	command = new HelpCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
