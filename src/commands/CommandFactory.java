@@ -23,6 +23,9 @@ public class CommandFactory {
         final String commandName = parts[0];
         // Decide which concrete class to instantiate
         Command command = null;
+        if (commandName.equals("quit")) {
+            command = new QuitCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
+        }
 
         // No concrete class matches the command name
         if (command == null) {
