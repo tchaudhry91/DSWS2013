@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
@@ -20,6 +21,8 @@ public class TcpSession implements Session {
 	boolean streams;
 	InputStream is;
 	OutputStream os;
+
+    private final static int MAX_RESPONSE_SIZE = 128 * 1024; // 128 KB
 	
 	/**
 	 * Create an Instance of TcpSession 
@@ -129,22 +132,29 @@ public class TcpSession implements Session {
 	 */
 	public byte[] receive() {
 		try{
-			int total = is.available();
 			int alreadyRead = 0;
 			final int bufferSize = 256;
-			byte[] inData = new byte[total];
+			byte[] inData = new byte[MAX_RESPONSE_SIZE];
 			byte[] inDataBuff = new byte[bufferSize];
-			while(is.available()>0){
+            while (true) {
 				int bytesRead = is.read(inDataBuff, 0, bufferSize);
-				System.arraycopy(inDataBuff, 0, inData, alreadyRead, bufferSize);
+                System.arraycopy(inDataBuff, 0, inData, alreadyRead, bytesRead);
 				alreadyRead += bytesRead;
+                if (alreadyRead >= MAX_RESPONSE_SIZE) {
+                    is.skip(is.available());
+                    break;
+                }
+                if (is.available() == 0) {
+                    break;
+                }
 			}
 			if(alreadyRead == 0){
 				return null;
 			}
 			else{
 				log.info("Your data is successfully read.");
-				return inData;
+                // Return only the data that was received from the server
+				return Arrays.copyOf(inData, alreadyRead);
 			}
 		}
 		catch(IOException IOEx){
