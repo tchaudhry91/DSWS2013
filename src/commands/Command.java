@@ -9,11 +9,14 @@ import java.io.PrintStream;
 public abstract class Command {
     protected String[] parameters;
     protected Context context;
+    protected String line;
 
-    public Command(Context context, String[] parameters) {
+    public Command(Context context, String[] parameters, String line) {
         this.parameters = parameters;
         this.context = context;
+        this.line = line;
     }
+
     public abstract boolean execute();
 
     /**
@@ -22,7 +25,7 @@ public abstract class Command {
      */
     protected void writeResponse(String response) {
         final PrintStream stream = context.getOutputStream();
-        stream.print(response);
+        stream.println(response);
     }
 
     /**

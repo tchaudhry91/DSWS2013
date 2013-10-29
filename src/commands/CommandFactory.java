@@ -23,8 +23,9 @@ public class CommandFactory {
         final String commandName = parts[0];
         // Decide which concrete class to instantiate
         Command command = null;
+        String[] parameters = Arrays.copyOfRange(parts, 1, parts.length);
         if (commandName.equals("quit")) {
-            command = new QuitCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
+            command = new QuitCommand(context, parameters, line);
         }
         else if(commandName.equals("help")) {
         	command = new HelpCommand(context, Arrays.copyOfRange(parts, 1, parts.length));

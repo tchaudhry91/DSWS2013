@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import network.Session;
 
 public class QuitCommand extends Command {
-	
 	Logger log;
 	
     public QuitCommand(Context context, String[] parameters) {
