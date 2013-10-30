@@ -7,12 +7,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
+import logging.MyLogger;
+
 import org.apache.log4j.Logger;
 
+import ui.Application;
 import commands.QuitCommand;
 
 public class TcpSession implements Session {
 	
+	MyLogger myLog;
 	Logger log;
 	
 	Socket client;
@@ -33,8 +37,9 @@ public class TcpSession implements Session {
 		this.host = host;
 		this.port = port;
 		
-		log = Logger.getLogger(TcpSession.class);
-		log.info("Compiling source file: " + log.getName());
+		myLog = MyLogger.getInstance();
+    	myLog.createLogger(TcpSession.class);
+		log = myLog.getLogger();
 		log.info("You have made the TcpSession.");
 	}
 	

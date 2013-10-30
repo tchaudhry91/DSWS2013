@@ -7,23 +7,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import logging.Log4JUtils;
-
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
+
+import logging.MyLogger;
 
 public class Application {
     private final static String PROMPT = "EchoClient> ";
     
-    static {
-		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
-		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
-	}
 
     public static void main(String[] args) {
     	
-    	Logger log = Logger.getLogger(Application.class);
-		log.info("Compiling source file: " + log.getName());
+    	MyLogger mylog = MyLogger.getInstance();
+    	mylog.createLogger(Application.class);
+    	Logger log = mylog.getLogger();
+    	
 		log.info("Program is started.");
     	
         CommandFactory factory = new CommandFactory();

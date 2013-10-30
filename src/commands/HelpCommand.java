@@ -1,18 +1,22 @@
 package commands;
 
+import logging.MyLogger;
+
 import org.apache.log4j.Logger;
 
 import ui.Application;
 
 public class HelpCommand extends Command {
 	
+	MyLogger myLog;
 	Logger log;
 
 	public HelpCommand(Context context, String[] parameters, String line) {
 		super(context, parameters, line);
 		
-		log = Logger.getLogger(HelpCommand.class);
-		log.info("Compiling source file: " + log.getName());
+		myLog = MyLogger.getInstance();
+    	myLog.createLogger(HelpCommand.class);
+		log = myLog.getLogger();
 		log.info("You have made the help command.");
 	}
 
