@@ -28,6 +28,8 @@ public class CommandFactory {
             command = new QuitCommand(context, parameters, line);
         } else if (commandName.equals("connect")) {
             command = new ConnectCommand(context, parameters, line);
+        } else if (commandName.equals("disconnect")) {
+            command = new DisconnectCommand(context, parameters, line);
         }
         else if(commandName.equals("help")) {
         	command = new HelpCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
