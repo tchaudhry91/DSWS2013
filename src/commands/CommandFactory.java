@@ -26,7 +26,9 @@ public class CommandFactory {
         if (commandName.equals("quit")) {
             command = new QuitCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
         }
-
+        else if(commandName.equals("help")) {
+        	command = new HelpCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
+        }
         // No concrete class matches the command name
         if (command == null) {
             return null;
