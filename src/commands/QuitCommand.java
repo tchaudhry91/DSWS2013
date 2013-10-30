@@ -7,8 +7,8 @@ import network.Session;
 public class QuitCommand extends Command {
 	Logger log;
 	
-    public QuitCommand(Context context, String[] parameters) {
-        super(context, parameters);
+    public QuitCommand(Context context, String[] parameters, String line) {
+        super(context, parameters, line);
         
         log = Logger.getLogger(QuitCommand.class);
 		log.info("Compiling source file: " + log.getName());

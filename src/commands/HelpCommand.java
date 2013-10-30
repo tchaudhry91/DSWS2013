@@ -8,8 +8,8 @@ public class HelpCommand extends Command {
 	
 	Logger log;
 
-	public HelpCommand(Context context, String[] parameters) {
-		super(context, parameters);
+	public HelpCommand(Context context, String[] parameters, String line) {
+		super(context, parameters, line);
 		
 		log = Logger.getLogger(HelpCommand.class);
 		log.info("Compiling source file: " + log.getName());

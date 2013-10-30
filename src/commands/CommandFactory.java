@@ -32,9 +32,8 @@ public class CommandFactory {
             command = new DisconnectCommand(context, parameters, line);
         } else if (commandName.equals("send")) {
             command = new SendCommand(context, parameters, line);
-        }
-        else if(commandName.equals("help")) {
-        	command = new HelpCommand(context, Arrays.copyOfRange(parts, 1, parts.length));
+        } else if(commandName.equals("help")) {
+            command = new HelpCommand(context, parameters, line);
         }
         // No concrete class matches the command name
         if (command == null) {
