@@ -1,11 +1,19 @@
 package commands;
 
+import org.apache.log4j.Logger;
+
 import network.Session;
 
 public class QuitCommand extends Command {
-
+	
+	Logger log;
+	
     public QuitCommand(Context context, String[] parameters) {
         super(context, parameters);
+        
+        log = Logger.getLogger(QuitCommand.class);
+		log.info("Compiling source file: " + log.getName());
+		log.info("You have made the quit command.");
     }
 
     @Override
@@ -15,7 +23,8 @@ public class QuitCommand extends Command {
         if (session != null) {
             session.disconnect();
         }
-
+        
+        log.info("Application exit.");
         writeResponse("Application exit!");
         System.exit(0);
         return true;
@@ -23,6 +32,10 @@ public class QuitCommand extends Command {
 
     @Override
     public boolean isValid() {
-        return parameters != null && parameters.length == 0;
+        if(parameters != null && parameters.length == 0) {
+        	log.info("Your help command is valid.");
+        	return true;
+        }
+        return false;
     }
 }

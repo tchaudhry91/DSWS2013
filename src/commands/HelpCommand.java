@@ -1,9 +1,19 @@
 package commands;
 
+import org.apache.log4j.Logger;
+
+import ui.Application;
+
 public class HelpCommand extends Command {
+	
+	Logger log;
 
 	public HelpCommand(Context context, String[] parameters) {
 		super(context, parameters);
+		
+		log = Logger.getLogger(HelpCommand.class);
+		log.info("Compiling source file: " + log.getName());
+		log.info("You have made the help command.");
 	}
 
 	@Override
@@ -39,12 +49,17 @@ public class HelpCommand extends Command {
 	@Override
 	public boolean isValid() {
 		if (parameters.length == 0) {
+			log.info("Your help command is valid.");
 			return true;
 		} else if ("connect".equals(parameters[0])
 				|| "disconnect".equals(parameters[0])
 				|| "send".equals(parameters[0]) || "quit".equals(parameters[0])) {
+			
+			log.info("Your help command is valid.");
 			return true;
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 }

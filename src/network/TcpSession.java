@@ -6,8 +6,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TcpSession implements Session {
+import org.apache.log4j.Logger;
 
+import commands.QuitCommand;
+
+public class TcpSession implements Session {
+	
+	Logger log;
+	
 	Socket client;
 	String host;
 	int port; 
@@ -23,6 +29,10 @@ public class TcpSession implements Session {
 	public TcpSession(String host, int port){
 		this.host = host;
 		this.port = port;
+		
+		log = Logger.getLogger(TcpSession.class);
+		log.info("Compiling source file: " + log.getName());
+		log.info("You have made the TcpSession.");
 	}
 	
 	/**
@@ -34,14 +44,18 @@ public class TcpSession implements Session {
 		try{
 			client = new Socket(host,port);
 			streams = initStreams();
+			
+			log.info("You are connected to the server: " + host + " / " + port);
 			return true;
 		}
 		catch(UnknownHostException UHEx){
-			//Log Host Could Not Be Resolved
+			log.error("Exception while trying to connect with the server. Type of excepton: UnknownHost");
+			log.error(UHEx.getStackTrace());
 			return false;
 		}
 		catch(IOException IOEx){
-			//Log IOException and Description
+			log.error("Exception while trying to connect with the server. Type of excepton: IO.");
+			log.error(IOEx.getStackTrace());
 			return false;
 		}
 	}
@@ -56,10 +70,13 @@ public class TcpSession implements Session {
 			is.close();
 			os.close();
 			client.close();
+			
+			log.info("You are disconnected from the server.");
 			return true;
 		}
 		catch(IOException IOEx){
-			//Log IOException and Description
+			log.error("Exception while trying to disconnect with the server. Type of excepton: IO.");
+			log.error(IOEx.getStackTrace());
 			return false;
 		}
 	}
@@ -73,10 +90,13 @@ public class TcpSession implements Session {
 		try{
 			is = client.getInputStream();
 			os = client.getOutputStream();
+			
+			log.info("Your input and output stream are regularly initialized.");
 			return true;
 		}
 		catch(IOException IOEx){
-			//Log IOException and Description
+			log.error("Exception trying to initialize input and output streams. Type of exception: IO.");
+			log.error(IOEx.getStackTrace());
 			return false;
 		}
 	}
@@ -91,10 +111,13 @@ public class TcpSession implements Session {
 		try{
 			os.write(outData);
 			os.flush();
+			
+			log.info("Your data is successfully sent.");
 			return true;
 		}
 		catch(IOException IOEx){
-			//Log IOException and Description
+			log.error("Exception trying to send data. Type of exception: IO.");
+			log.error(IOEx.getStackTrace());
 			return false;
 		}
 	}
@@ -120,11 +143,13 @@ public class TcpSession implements Session {
 				return null;
 			}
 			else{
+				log.info("Your data is successfully read.");
 				return inData;
 			}
 		}
 		catch(IOException IOEx){
-			//Log IOException and Description
+			log.error("Exception trying to read data. Type of exception: IO.");
+			log.error(IOEx.getStackTrace());
 			return null;
 		}
 	}
