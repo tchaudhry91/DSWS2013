@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
 		} 
 		else if ("connect".equals(parameters[0])) {
 			writeResponse("With the connect command you can try to establish network with the server. \n"
-					+ "After calling 'connect' command you should type conncetion address and port of the server. \n"
+					+ "After calling 'connect' command you should type connection address and port of the server. \n"
 					+ "Exapmle: connect <address> <port> \n");
 			return true;
 		} 
